@@ -1,15 +1,20 @@
 import { transporter, renderTemplate } from "../config/nodemailer.js";
 
 export let newDemoMail = () => {
-  console.log("Inside newComment mailer");
+  let htmlString = renderTemplate(
+    {
+      name: "Demo Mail",
+    },
+    "/demo_mail.ejs"
+  );
 
   transporter.sendMail(
     {
       // ToDo - Set sender and receiver mail
-      from: "", //sender mail
-      to: "", //receiver mail
+      from: "sender@gmail.com", //sender mail
+      to: "receiver@gmail.com", //receiver mail
       subject: "New Mail",
-      html: "<h1>Hello, this is a mail from node mailer.</h1>",
+      html: htmlString,
     },
     (err, info) => {
       if (err) {

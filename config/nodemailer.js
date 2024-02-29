@@ -1,6 +1,11 @@
 import nodemailer from "nodemailer";
 import ejs from "ejs";
 import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export let transporter = nodemailer.createTransport({
   service: "gmail",
@@ -16,6 +21,7 @@ export let transporter = nodemailer.createTransport({
 
 export let renderTemplate = (data, relativePath) => {
   let mailHTML;
+  console.log(__dirname);
   ejs.renderFile(
     path.join(__dirname, "../views/mailers", relativePath),
     data,
