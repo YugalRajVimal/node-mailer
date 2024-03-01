@@ -1,9 +1,9 @@
 import { transporter, renderTemplate } from "../config/nodemailer.js";
 
-export let newDemoMail = () => {
+export let newDemoMail = (data) => {
   let htmlString = renderTemplate(
     {
-      name: "Demo Mail",
+      name: data,
     },
     "/demo_mail.ejs"
   );

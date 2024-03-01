@@ -1,10 +1,17 @@
 import express from "express";
-import { newDemoMail } from "./mailers/demo_mailer.js";
+import queue from "./config/kue.js";
+import demoWorker from "./workers/demo_worker.js";
 
 const app = express();
 
 app.post("/", (req, res) => {
-  newDemoMail();
+  let job = queue.create("emails", "Demo Mail").save((err) => {
+    if (err) {
+      console.log("Error in creating a queue");
+      return;
+    }
+    console.log("Job enqueued ", job.id);
+  });
   res.send("Mail Sent Successfully");
 });
 
